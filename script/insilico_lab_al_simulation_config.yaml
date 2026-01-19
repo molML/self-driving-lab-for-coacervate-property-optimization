@@ -1,0 +1,82 @@
+# ------------------------------------------------------------------------------
+# Configuration file for Active Learning Regressor experiments
+# ------------------------------------------------------------------------------
+experiment_name: "test_coacervate_optimization_maternw_number_of_particles"
+experiment_notes: "Test notes."
+
+# --------------------------------------------------------------
+# Ground truth data configuration
+ground_truth_file: "coacervate_number_of_particles_maternw_TEST.csv"
+experiment_evidence:
+search_space_variables:
+  - "x1"
+  - "x2"
+
+target_variables:
+  - "Number_of_Particles"
+
+# --------------------------------------------------------------
+# Data scaling configuration
+data_scaler: "StandardScaler"
+scaler_params: null
+
+# --------------------------------------------------------------
+# Cycles parameters
+n_cycles: 3
+init_batch_size: 8
+init_sampling: "random"
+
+# --------------------------------------------------------------
+# ML model configuration
+ml_model: "GPR"
+
+model_parameters:
+  kernel_recipe: "MATERN_W"  # for GPR either "RBF_W" or "MATERN_W" or custom recipe
+  n_restarts_optimizer: 150
+  alpha: 1e-10
+  normalize_y: true
+  optimizer: 'fmin_l_bfgs_b'
+  use_gridsearch: false
+  log_transform: false
+
+# --------------------------------------------------------------
+# Acquisition functions configuration
+acquisition_parameters:
+  - acquisition_mode: "expected_improvement"
+
+  - acquisition_mode: "target_expected_improvement_800"
+    y_target: 800
+    epsilon: 150
+
+  - acquisition_mode: "percentage_target_expected_improvement"
+    percentage: 80
+
+  - acquisition_mode: "exploration_mutual_info"
+
+  - acquisition_mode: "maximum_predicted_value"
+
+  - acquisition_mode: "random"
+
+landscape_penalization: null  # radius: 0.25, strength: 1.0
+
+batch_selection:
+  # highest_landscape
+  method: "highest_landscape"
+  method_params: # if `null` uses default params for the selected mode (see documentation for details)
+    # eg. for highest_landscape:
+    percentile: 95
+    sampling_method: "voronoi"
+
+# --------------------------------------------------------------
+# Multi-stage acquisition protocol configuration
+acquisition_protocol:
+  stage_1:
+    cycles: 1
+    acquisition_modes: ['exploration_mutual_info', 'expected_improvement']
+    n_points: [4, 4]  # Number of points to acquire for each mode in stage 1
+  stage_2:
+    cycles: 2
+    acquisition_modes: ['exploration_mutual_info', 'expected_improvement']
+    n_points: [2, 6]  # Number of points to acquire for each mode in stage 2
+
+
