@@ -1,0 +1,36 @@
+{
+    "cycle": 3,
+    "sampling_mode": "voronoi",
+    "n_points": 8,
+    "acquisition_params": [
+        {
+            "acquisition_mode": "expected_improvement",
+            "n_points": 6
+        },
+        {
+            "acquisition_mode": "exploration_mutual_info",
+            "n_points": 2
+        }
+    ],
+    "screened_indexes": [
+        2629,
+        3341,
+        6376,
+        2161,
+        2703,
+        2776,
+        273,
+        6132
+    ],
+    "candidates_df_shape": [
+        6537,
+        2
+    ],
+    "train_df_shape": [
+        24,
+        3
+    ],
+    "y_best": 1756,
+    "nll": -20.624053970160652,
+    "model_params": "GPR(log_transform=False, gridsearch=False, kernel=1.05**2 * Matern(length_scale=0.722, nu=2.5) + WhiteKernel(noise_level=1e-05), trained=True)"
+}

@@ -1,0 +1,23 @@
+{
+    "cycle": 0,
+    "init_sampling_mode": "random",
+    "n_points": 8,
+    "screened_indexes": [
+        1317,
+        1147,
+        2093,
+        5675,
+        6462,
+        2283,
+        2032,
+        1096
+    ],
+    "candidates_df_shape": [
+        6561,
+        2
+    ],
+    "train_df_shape": [
+        0,
+        2
+    ]
+}
